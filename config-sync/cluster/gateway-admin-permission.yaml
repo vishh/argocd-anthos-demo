@@ -4,7 +4,7 @@ metadata:
   name: gateway-cluster-admin
 subjects:
 - kind: User
-  name: vishnuk@google.com
+  name: connect-gateway-demo@vishnuk-cloud.iam.gserviceaccount.com
 roleRef:
   kind: ClusterRole
   name: cluster-admin
