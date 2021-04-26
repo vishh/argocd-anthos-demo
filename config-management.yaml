@@ -1,0 +1,13 @@
+# config-management.yaml
+
+apiVersion: configmanagement.gke.io/v1
+kind: ConfigManagement
+metadata:
+  name: config-management
+spec:
+  sourceFormat: unstructured
+  git:
+    syncRepo: git@github.com:vishh/argocd-anthos-demo.git
+    syncBranch: main
+    secretType: ssh
+    policyDir: "config-sync"
