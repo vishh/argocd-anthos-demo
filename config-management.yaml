@@ -5,7 +5,7 @@ kind: ConfigManagement
 metadata:
   name: config-management
 spec:
-  sourceFormat: unstructured
+  sourceFormat: hierarchy
   git:
     syncRepo: git@github.com:vishh/argocd-anthos-demo.git
     syncBranch: main
