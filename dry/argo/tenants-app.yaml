@@ -8,9 +8,9 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: https://github.com/vishh/argocd-anthos-demo
+    repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
-    path: argo/tenants
+    path: hydrated/argo/tenants
     directory:
       recursive: true
 

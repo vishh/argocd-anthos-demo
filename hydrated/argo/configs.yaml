@@ -21,8 +21,8 @@ spec:
     directory:
       recurse: false
       recursive: true
-    path: argo/tenants
-    repoURL: https://github.com/vishh/argocd-anthos-demo
+    path: hydrated/argo/tenants
+    repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
   syncPolicy:
     automated:

@@ -10,4 +10,4 @@ spec:
     syncRepo: git@github.com:vishh/argocd-anthos-demo.git
     syncBranch: main
     secretType: ssh
-    policyDir: "config-sync"
+    policyDir: "hydrated/config-sync"

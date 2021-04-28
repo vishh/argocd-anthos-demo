@@ -22,7 +22,7 @@ spec:
   orphanedResources:
     warn: true
   sourceRepos:
-  - https://github.com/vishh/argocd-anthos-demo
+  - git@github.com:vishh/argocd-anthos-demo.git
   - namespace: argocd
     server: https://kubernetes.default.svc
 ---
@@ -48,8 +48,8 @@ spec:
   source:
     directory:
       recurse: false
-    path: argo
-    repoURL: https://github.com/vishh/argocd-anthos-demo
+    path: hydrated/argo
+    repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
   syncPolicy:
     automated:

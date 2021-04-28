@@ -28,8 +28,8 @@ spec:
   source:
     directory:
       recurse: true
-    path: argo/admin-cluster
-    repoURL: https://github.com/vishh/argocd-anthos-demo
+    path: hydrated/argo/admin-cluster
+    repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
   syncPolicy:
     automated:

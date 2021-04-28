@@ -1,0 +1,103 @@
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeNetwork
+metadata:
+  labels:
+    owner: platforms-team
+    type: production
+  name: prod-2-containercluster-dep-vpcnative
+spec:
+  autoCreateSubnetworks: false
+  routingMode: REGIONAL
+---
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeSubnetwork
+metadata:
+  labels:
+    owner: platforms-team
+    type: production
+  name: prod-2-containercluster-dep-vpcnative
+spec:
+  ipCidrRange: 10.5.0.0/16
+  networkRef:
+    name: containercluster-dep-vpcnative
+  region: us-central1
+  secondaryIpRange:
+  - ipCidrRange: 10.6.0.0/16
+    rangeName: servicesrange
+  - ipCidrRange: 10.7.0.0/16
+    rangeName: clusterrange
+---
+apiVersion: container.cnrm.cloud.google.com/v1beta1
+kind: ContainerCluster
+metadata:
+  labels:
+    availability: high
+    cluster-name: prod-2
+    cluster-type: production
+    owner: platforms-team
+    type: production
+  name: prod-2-cluster
+spec:
+  addonsConfig:
+    dnsCacheConfig:
+      enabled: true
+    networkPolicyConfig:
+      disabled: true
+  clusterAutoscaling:
+    autoscalingProfile: BALANCED
+    enabled: true
+    resourceLimits:
+    - maximum: 100
+      minimum: 2
+      resourceType: cpu
+    - maximum: 1000
+      minimum: 100
+      resourceType: memory
+  description: Shared workload cluster meant for production workloads
+  enableBinaryAuthorization: true
+  enableIntranodeVisibility: true
+  enableShieldedNodes: true
+  initialNodeCount: 3
+  ipAllocationPolicy:
+    clusterSecondaryRangeName: clusterrange
+    servicesSecondaryRangeName: servicesrange
+  location: us-central1
+  maintenancePolicy:
+    dailyMaintenanceWindow:
+      startTime: "00:00"
+  networkPolicy:
+    enabled: true
+  networkRef:
+    name: containercluster-dep-vpcnative
+  networkingMode: VPC_NATIVE
+  nodeLocations:
+  - us-central1-a
+  podSecurityPolicyConfig:
+    enabled: true
+  releaseChannel:
+    channel: STABLE
+  subnetworkRef:
+    name: prod-2-containercluster-dep-vpcnative
+  verticalPodAutoscaling:
+    enabled: true
+  workloadIdentityConfig:
+    identityNamespace: vishnuk-cloud.svc.id.goog
+---
+apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
+kind: GKEHubMembership
+metadata:
+  labels:
+    cluster-name: prod-2
+    cluster-type: production
+    owner: platforms-team
+    type: production
+  name: prod-2-gkehubmembership
+spec:
+  authority:
+    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/prod-2-cluster
+  description: Registering GKE cluster prod-2-cluster
+  endpoint:
+    gkeCluster:
+      resourceRef:
+        name: prod-2-cluster
+  location: global
