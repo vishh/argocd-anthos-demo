@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
-    path: hydrated/argo/tenants
+    path: hydrated/argo/tenant-apps
     directory:
       recurse: true
 
