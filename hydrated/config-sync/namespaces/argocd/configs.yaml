@@ -3507,7 +3507,4 @@ spec:
             path: ca.crt
           optional: true
           secretName: argocd-repo-server-tls
-  volumeClaimTemplates:
-    metadata:
-      labels:
-        owner: platforms-team
+  volumeClaimTemplates: []
