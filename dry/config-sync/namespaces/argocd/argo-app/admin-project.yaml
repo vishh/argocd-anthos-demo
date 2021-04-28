@@ -9,6 +9,7 @@ spec:
   sourceRepos:
   - "git@github.com:vishh/argocd-anthos-demo.git"
 
+  destinations:
   - namespace: 'argocd'
     server: https://kubernetes.default.svc
 

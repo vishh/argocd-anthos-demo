@@ -14,7 +14,7 @@ spec:
   description: ArgoCD project that will bootstrap ArgoCD to pull configs from an admin
     git repo.
   destinations:
-  - namespace: ""
+  - namespace: argocd
     server: https://kubernetes.default.svc
   namespaceResourceWhitelist:
   - group: '*'
@@ -23,8 +23,6 @@ spec:
     warn: true
   sourceRepos:
   - git@github.com:vishh/argocd-anthos-demo.git
-  - namespace: argocd
-    server: https://kubernetes.default.svc
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
