@@ -1,12 +1,12 @@
 #!/bin/bash
 
 dirs=$(find dry/* -type d)
+hydrated_base_dir="hydrated"
+rm -rf $hydrated_base_dir/
 for d in $dirs
 do
     dir=${d#*/}
-    hydrated_dir="hydrated/$dir"
-    echo $dir
-    rm hydrated/$dir/* 2> /dev/null
+    hydrated_dir="$hydrated_base_dir/$dir"
     mkdir -p $hydrated_dir
     if [ -f "$d/kustomization.yaml" ]
     then
