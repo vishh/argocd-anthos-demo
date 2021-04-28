@@ -19,8 +19,7 @@ spec:
   project: admin-project
   source:
     directory:
-      recurse: false
-      recursive: true
+      recurse: true
     path: hydrated/argo/tenants
     repoURL: git@github.com:vishh/argocd-anthos-demo.git
     targetRevision: HEAD
