@@ -10,7 +10,7 @@ spec:
   - "git@github.com:vishh/argocd-anthos-demo.git"
 
   destinations:
-  - namespace: 'argocd'
+  - namespace: '*'
     server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
