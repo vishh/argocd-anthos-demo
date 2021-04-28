@@ -17,9 +17,7 @@ kind: ContainerCluster
 metadata:
   labels:
     availability: high
-    cluster-type: production
-    cluster-name: prod-2
-  name: prod-2
+  name: cluster
 spec:
   description: A large regional VPC-native cluster set up with special networking considerations.
   location: us-central1
@@ -29,15 +27,15 @@ spec:
   workloadIdentityConfig:
     # Workload Identity supports only a single namespace based on your project name.
     # Replace ${PROJECT_ID?} below with your project ID.
-    identityNamespace: vishnuk-cloud.svc.id.goog
+    identityNamespace: project-cloud.svc.id.goog
   networkingMode: VPC_NATIVE
   networkRef:
     name: containercluster-dep-vpcnative
   subnetworkRef:
     name: containercluster-dep-vpcnative
   ipAllocationPolicy:
-    servicesSecondaryRangeName: servicesrange-prod-2
-    clusterSecondaryRangeName: clusterrange-prod-2
+    servicesSecondaryRangeName: servicesrange
+    clusterSecondaryRangeName: clusterrange
   clusterAutoscaling:
     enabled: true
     autoscalingProfile: BALANCED
@@ -72,16 +70,14 @@ apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
 kind: GKEHubMembership
 metadata:
   labels:
-    cluster-type=production
-    cluster-name=prod-2
-  name: prod-2-gkehubmembership
+  name: gkehubmembership
 spec:
   location: global
   authority:
     # Issuer must contain a link to a valid JWT issuer. Your ContainerCluster is one, to use it, replace ${PROJECT_ID?} with your project ID.
-    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1-a/clusters/gkehubmembership-dep
+    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/cluster
   description: Registering GKE cluster
   endpoint:
     gkeCluster:
       resourceRef:
-        name: gkehubmembership-dep
+        name: cluster

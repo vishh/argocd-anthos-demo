@@ -17,9 +17,7 @@ kind: ContainerCluster
 metadata:
   labels:
     availability: high
-    cluster-type: staging
-    cluster-name: staging-1
-  name: staging-1
+  name: cluster
 spec:
   description: A large regional VPC-native cluster set up with special networking considerations.
   location: us-central1
@@ -29,12 +27,12 @@ spec:
   workloadIdentityConfig:
     # Workload Identity supports only a single namespace based on your project name.
     # Replace ${PROJECT_ID?} below with your project ID.
-    identityNamespace: vishnuk-cloud.svc.id.goog
+    identityNamespace: project-cloud.svc.id.goog
   networkingMode: VPC_NATIVE
   networkRef:
     name: containercluster-dep-vpcnative
   subnetworkRef:
-    name: containercluster-dep-vpcnative-staging-1
+    name: containercluster-dep-vpcnative
   ipAllocationPolicy:
     servicesSecondaryRangeName: servicesrange
     clusterSecondaryRangeName: clusterrange
@@ -72,9 +70,7 @@ apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
 kind: GKEHubMembership
 metadata:
   labels:
-    cluster-type=staging
-    cluster-name=staging-1
-  name: staging-1-gkehubmembership
+  name: gkehubmembership
 spec:
   location: global
   authority:
