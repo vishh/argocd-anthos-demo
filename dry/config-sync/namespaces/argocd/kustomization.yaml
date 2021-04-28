@@ -3,9 +3,14 @@ kind: Kustomization
 namespace: argocd
 commonLabels:
   owner: platforms-team
-  
+commonAnnotations:
+  configsync.gke.io/cluster-name-selector: standard-cluster-1
+
 resources:
 - install.yaml
 - configmap.yaml
 - rbac.yaml
 - namespace.yaml
+- cluster-rbac.yaml
+- crds.yaml
+

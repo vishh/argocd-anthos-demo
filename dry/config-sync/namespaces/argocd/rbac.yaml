@@ -7,8 +7,6 @@ metadata:
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/part-of: argocd
   name: argocd-application-controller
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 rules:
 - apiGroups:
   - ""
@@ -67,8 +65,6 @@ metadata:
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/part-of: argocd
   name: argocd-redis
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 rules:
 - apiGroups:
   - security.openshift.io
@@ -87,8 +83,6 @@ metadata:
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
   name: argocd-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 rules:
 - apiGroups:
   - ""
@@ -132,8 +126,6 @@ metadata:
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/part-of: argocd
   name: argocd-application-controller
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -150,8 +142,6 @@ metadata:
     app.kubernetes.io/name: argocd-dex-server
     app.kubernetes.io/part-of: argocd
   name: argocd-dex-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -168,8 +158,6 @@ metadata:
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/part-of: argocd
   name: argocd-redis
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -186,8 +174,6 @@ metadata:
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
   name: argocd-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

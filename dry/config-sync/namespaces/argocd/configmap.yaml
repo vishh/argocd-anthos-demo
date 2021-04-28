@@ -5,11 +5,10 @@ metadata:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
   name: argocd-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
 data:
-  repositories:
-  - url: git@github.com:vishh/argocd-anthos-demo.git
-    sshPrivateKeySecret:
-    name: git-creds
-    key: sshPrivateKey
+  repositories: |
+    - url: git@github.com:vishh/argocd-anthos-demo.git
+      sshPrivateKeySecret:
+        name: git-creds
+        key: sshPrivateKey
+    
