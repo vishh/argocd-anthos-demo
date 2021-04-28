@@ -5,7 +5,7 @@ commonLabels:
   owner: platforms-team
   
 bases:
-- ../../../../base/argo-app
+- ../../../../../base/argo-app
 
 patchesStrategicMerge:
 - infra-app.yaml

@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app
+spec:
+  # The project the application belongs to.
+  project: admin-project
+
+  # Source of the application manifests
+  source:
+    repoURL: "git@github.com:vishh/argocd-anthos-demo.git"
+    targetRevision: HEAD
+    path: hydrated/argo/tenant-policies/admin-infra/
+    
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kcc
