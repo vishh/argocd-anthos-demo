@@ -1,79 +1,295 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    owner: platforms-team
+  name: bootstrap-argocd
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/part-of: argocd
-  name: argocd-application-controller
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-application-controller
 ---
 apiVersion: v1
 kind: ServiceAccount
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: dex-server
+    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-dex-server
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: redis
+    app.kubernetes.io/name: argocd-redis
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-redis
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-server
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: application-controller
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-application-controller
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applications
+  - appprojects
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
 metadata:
   labels:
     app.kubernetes.io/component: dex-server
     app.kubernetes.io/name: argocd-dex-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-dex-server
+    owner: platforms-team
+  name: bootstrap-argocd-dex-server
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
   annotations:
     configsync.gke.io/cluster-name-selector: standard-cluster-1
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
   labels:
     app.kubernetes.io/component: redis
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/part-of: argocd
-  name: argocd-redis
+    owner: platforms-team
+  name: bootstrap-argocd-redis
+rules:
+- apiGroups:
+  - security.openshift.io
+  resourceNames:
+  - nonroot
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
   annotations:
     configsync.gke.io/cluster-name-selector: standard-cluster-1
-
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-server
+    owner: platforms-team
+  name: bootstrap-argocd-server
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - argoproj.io
+  resources:
+  - applications
+  - appprojects
+  verbs:
+  - create
+  - get
+  - list
+  - watch
+  - update
+  - delete
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
   annotations:
     configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: application-controller
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-application-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: bootstrap-argocd-application-controller
+subjects:
+- kind: ServiceAccount
+  name: bootstrap-argocd-application-controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: dex-server
+    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-dex-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: bootstrap-argocd-dex-server
+subjects:
+- kind: ServiceAccount
+  name: bootstrap-argocd-dex-server
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: redis
+    app.kubernetes.io/name: argocd-redis
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-redis
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: bootstrap-argocd-redis
+subjects:
+- kind: ServiceAccount
+  name: bootstrap-argocd-redis
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-server
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: bootstrap-argocd-server
+subjects:
+- kind: ServiceAccount
+  name: bootstrap-argocd-server
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
-  name: argocd-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-cm
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-gpg-keys-cm
     app.kubernetes.io/part-of: argocd
-  name: argocd-gpg-keys-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-gpg-keys-cm
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-rbac-cm
     app.kubernetes.io/part-of: argocd
-  name: argocd-rbac-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-rbac-cm
 ---
 apiVersion: v1
 data:
@@ -87,45 +303,49 @@ data:
     vs-ssh.visualstudio.com ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7Hr1oTWqNqOlzGJOfGJ4NakVyIzf1rXYd4d7wo6jBlkLvCA4odBlL0mDUyZ0/QUfTTqeu+tm22gOsv+VrVTMk6vwRU75gY/y9ut5Mb3bR5BV58dKXyq9A9UeB5Cakehn5Zgm6x1mKoVyf+FFn26iYqXJRgzIZZcZ5V6hrE0Qg39kZm4az48o0AUbf6Sp4SLdvnuMa2sVNwHBboS7EJkm57XQPVU3/QpyNLHbWDdzwtrlS+ez30S3AdYhLKEOxAG8weOnyrtLJAUen9mTkol8oII1edf7mWWbWVf0nBmly21+nZcmCTISQBtdcyPaEno7fFQMDD26/s0lfKob4Kw8H
 kind: ConfigMap
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-ssh-known-hosts-cm
     app.kubernetes.io/part-of: argocd
-  name: argocd-ssh-known-hosts-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-ssh-known-hosts-cm
 ---
 apiVersion: v1
 data: null
 kind: ConfigMap
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-tls-certs-cm
     app.kubernetes.io/part-of: argocd
-  name: argocd-tls-certs-cm
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-tls-certs-cm
 ---
 apiVersion: v1
 kind: Secret
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/name: argocd-secret
     app.kubernetes.io/part-of: argocd
-  name: argocd-secret
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-secret
 type: Opaque
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: dex-server
     app.kubernetes.io/name: argocd-dex-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-dex-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-dex-server
 spec:
   ports:
   - name: http
@@ -142,17 +362,19 @@ spec:
     targetPort: 5558
   selector:
     app.kubernetes.io/name: argocd-dex-server
+    owner: platforms-team
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: metrics
     app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/part-of: argocd
-  name: argocd-metrics
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-metrics
 spec:
   ports:
   - name: metrics
@@ -161,17 +383,19 @@ spec:
     targetPort: 8082
   selector:
     app.kubernetes.io/name: argocd-application-controller
+    owner: platforms-team
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: redis
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/part-of: argocd
-  name: argocd-redis
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-redis
 spec:
   ports:
   - name: tcp-redis
@@ -179,17 +403,19 @@ spec:
     targetPort: 6379
   selector:
     app.kubernetes.io/name: argocd-redis
+    owner: platforms-team
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-repo-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-repo-server
 spec:
   ports:
   - name: server
@@ -202,17 +428,40 @@ spec:
     targetPort: 8084
   selector:
     app.kubernetes.io/name: argocd-repo-server
+    owner: platforms-team
 ---
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: argocd-server-metrics
+    app.kubernetes.io/part-of: argocd
+    owner: platforms-team
+  name: bootstrap-argocd-server-metrics
+spec:
+  ports:
+  - name: metrics
+    port: 8083
+    protocol: TCP
+    targetPort: 8083
+  selector:
+    app.kubernetes.io/name: argocd-server
+    owner: platforms-team
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-server
 spec:
   ports:
   - name: http
@@ -225,44 +474,29 @@ spec:
     targetPort: 8080
   selector:
     app.kubernetes.io/name: argocd-server
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: server
-    app.kubernetes.io/name: argocd-server-metrics
-    app.kubernetes.io/part-of: argocd
-  name: argocd-server-metrics
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
-spec:
-  ports:
-  - name: metrics
-    port: 8083
-    protocol: TCP
-    targetPort: 8083
-  selector:
-    app.kubernetes.io/name: argocd-server
+    owner: platforms-team
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: dex-server
     app.kubernetes.io/name: argocd-dex-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-dex-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-dex-server
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-dex-server
+      owner: platforms-team
   template:
     metadata:
       labels:
         app.kubernetes.io/name: argocd-dex-server
+        owner: platforms-team
     spec:
       affinity:
         podAntiAffinity:
@@ -271,6 +505,7 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/part-of: argocd
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 5
       containers:
@@ -299,7 +534,7 @@ spec:
         volumeMounts:
         - mountPath: /shared
           name: static-files
-      serviceAccountName: argocd-dex-server
+      serviceAccountName: bootstrap-argocd-dex-server
       volumes:
       - emptyDir: {}
         name: static-files
@@ -307,21 +542,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: redis
     app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/part-of: argocd
-  name: argocd-redis
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-redis
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-redis
+      owner: platforms-team
   template:
     metadata:
       labels:
         app.kubernetes.io/name: argocd-redis
+        owner: platforms-team
     spec:
       affinity:
         podAntiAffinity:
@@ -330,12 +568,14 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: argocd-redis
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 100
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/part-of: argocd
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 5
       containers:
@@ -354,26 +594,29 @@ spec:
         runAsGroup: 1000
         runAsNonRoot: true
         runAsUser: 1000
-      serviceAccountName: argocd-redis
+      serviceAccountName: bootstrap-argocd-redis
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: repo-server
     app.kubernetes.io/name: argocd-repo-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-repo-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-repo-server
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-repo-server
+      owner: platforms-team
   template:
     metadata:
       labels:
         app.kubernetes.io/name: argocd-repo-server
+        owner: platforms-team
     spec:
       affinity:
         podAntiAffinity:
@@ -382,12 +625,14 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: argocd-repo-server
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 100
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/part-of: argocd
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 5
       automountServiceAccountToken: false
@@ -434,13 +679,13 @@ spec:
           name: argocd-repo-server-tls
       volumes:
       - configMap:
-          name: argocd-ssh-known-hosts-cm
+          name: bootstrap-argocd-ssh-known-hosts-cm
         name: ssh-known-hosts
       - configMap:
-          name: argocd-tls-certs-cm
+          name: bootstrap-argocd-tls-certs-cm
         name: tls-certs
       - configMap:
-          name: argocd-gpg-keys-cm
+          name: bootstrap-argocd-gpg-keys-cm
         name: gpg-keys
       - emptyDir: {}
         name: gpg-keyring
@@ -459,21 +704,24 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/part-of: argocd
-  name: argocd-server
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-server
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-server
+      owner: platforms-team
   template:
     metadata:
       labels:
         app.kubernetes.io/name: argocd-server
+        owner: platforms-team
     spec:
       affinity:
         podAntiAffinity:
@@ -482,12 +730,14 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: argocd-server
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 100
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/part-of: argocd
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 5
       containers:
@@ -525,15 +775,15 @@ spec:
           name: tls-certs
         - mountPath: /app/config/server/tls
           name: argocd-repo-server-tls
-      serviceAccountName: argocd-server
+      serviceAccountName: bootstrap-argocd-server
       volumes:
       - emptyDir: {}
         name: static-files
       - configMap:
-          name: argocd-ssh-known-hosts-cm
+          name: bootstrap-argocd-ssh-known-hosts-cm
         name: ssh-known-hosts
       - configMap:
-          name: argocd-tls-certs-cm
+          name: bootstrap-argocd-tls-certs-cm
         name: tls-certs
       - name: argocd-repo-server-tls
         secret:
@@ -550,23 +800,26 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+  annotations:
+    configsync.gke.io/cluster-name-selector: standard-cluster-1
   labels:
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/name: argocd-application-controller
     app.kubernetes.io/part-of: argocd
-  name: argocd-application-controller
-  annotations:
-    configsync.gke.io/cluster-name-selector: standard-cluster-1
+    owner: platforms-team
+  name: bootstrap-argocd-application-controller
 spec:
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: argocd-application-controller
+      owner: platforms-team
   serviceName: argocd-application-controller
   template:
     metadata:
       labels:
         app.kubernetes.io/name: argocd-application-controller
+        owner: platforms-team
     spec:
       affinity:
         podAntiAffinity:
@@ -575,12 +828,14 @@ spec:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/name: argocd-application-controller
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 100
           - podAffinityTerm:
               labelSelector:
                 matchLabels:
                   app.kubernetes.io/part-of: argocd
+                  owner: platforms-team
               topologyKey: kubernetes.io/hostname
             weight: 5
       containers:
@@ -615,7 +870,7 @@ spec:
         volumeMounts:
         - mountPath: /app/config/controller/tls
           name: argocd-repo-server-tls
-      serviceAccountName: argocd-application-controller
+      serviceAccountName: bootstrap-argocd-application-controller
       volumes:
       - name: argocd-repo-server-tls
         secret:
@@ -628,3 +883,77 @@ spec:
             path: ca.crt
           optional: true
           secretName: argocd-repo-server-tls
+  volumeClaimTemplates:
+    metadata:
+      labels:
+        owner: platforms-team
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    owner: platforms-team
+  name: bootstrap-project
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: ArgoCD project that will bootstrap ArgoCD to pull configs from an admin
+    git repo.
+  destinations:
+  - namespace: ""
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  orphanedResources:
+    warn: true
+  sourceRepos:
+  - git@github.com:vishh/argocd-anthos-demo.git
+  - namespace: argocd
+    server: https://kubernetes.default.svc
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  labels:
+    owner: platforms-team
+  name: bootstrap-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  ignoreDifferences:
+  - group: apps
+    jsonPointers:
+    - /spec/replicas
+    kind: Deployment
+  project: admin-project
+  source:
+    directory:
+      recurse: false
+    path: hydrated/argo
+    repoURL: git@github.com:vishh/argocd-anthos-demo.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      allowEmpty: false
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
+      limit: 5
+    syncOptions:
+    - Validate=false
+    - CreateNamespace=false
+    - PrunePropagationPolicy=foreground
+    - PruneLast=true
