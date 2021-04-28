@@ -5,7 +5,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
   labels:
     owner: platforms-team
-  name: bootstrap-project
+  name: admin-project
   namespace: argocd
 spec:
   clusterResourceWhitelist:
@@ -31,7 +31,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
   labels:
     owner: platforms-team
-  name: bootstrap-app
+  name: admin-app
   namespace: argocd
 spec:
   destination:
