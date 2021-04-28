@@ -5,7 +5,7 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
   labels:
     owner: platforms-team
-  name: infra-resources-app
+  name: admin-infra-policy-app
   namespace: argocd
 spec:
   destination:
