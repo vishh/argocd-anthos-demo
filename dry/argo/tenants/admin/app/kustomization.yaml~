@@ -7,8 +7,5 @@ commonLabels:
 bases:
 - ../../../../base/argo-app
 
-resources:
-- namespace.yaml
-
 patchesStrategicMerge:
 - infra-app.yaml
