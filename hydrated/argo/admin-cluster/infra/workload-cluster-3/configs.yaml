@@ -82,23 +82,3 @@ spec:
     enabled: true
   workloadIdentityConfig:
     identityNamespace: vishnuk-cloud.svc.id.goog
----
-apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
-kind: GKEHubMembership
-metadata:
-  labels:
-    cluster-name: staging-1
-    cluster-type: staging
-    owner: platforms-team
-    type: staging
-  name: staging-1-gkehubmembership
-  namespace: kcc
-spec:
-  authority:
-    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/staging-1-cluster
-  description: Registering GKE cluster prod-2-cluster
-  endpoint:
-    gkeCluster:
-      resourceRef:
-        name: staging-1-cluster
-  location: global
