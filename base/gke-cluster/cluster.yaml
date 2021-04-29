@@ -17,17 +17,19 @@ kind: ContainerCluster
 metadata:
   labels:
     availability: high
+    target-audience: production
   name: cluster
 spec:
   description: A large regional VPC-native cluster set up with special networking considerations.
   location: us-central1
-  initialNodeCount: 3
+  initialNodeCount: 1
+  defaultMaxPodsPerNode: 100
   nodeLocations:
     - us-central1-a
   workloadIdentityConfig:
     # Workload Identity supports only a single namespace based on your project name.
     # Replace ${PROJECT_ID?} below with your project ID.
-    identityNamespace: project-cloud.svc.id.goog
+    identityNamespace: vishnuk-cloud.svc.id.goog
   networkingMode: VPC_NATIVE
   networkRef:
     name: containercluster-dep-vpcnative
@@ -42,7 +44,7 @@ spec:
     resourceLimits:
     - resourceType: cpu
       maximum: 100
-      minimum: 2
+      minimum: 10
     - resourceType: memory
       maximum: 1000
       minimum: 100
@@ -51,13 +53,20 @@ spec:
       startTime: 00:00
   releaseChannel:
     channel: STABLE
+  notificationConfig:
+    pubsub:
+      enabled: true
+      topicRef:
+        name: containercluster-dep-vpcnative
   enableBinaryAuthorization: true
   enableIntranodeVisibility: true
   enableShieldedNodes: true
   addonsConfig:
     networkPolicyConfig:
-      disabled: true
+      disabled: false
     dnsCacheConfig:
+      enabled: true
+    configConnectorConfig:
       enabled: true
   networkPolicy:
     enabled: true
@@ -65,19 +74,4 @@ spec:
     enabled: true
   verticalPodAutoscaling:
     enabled: true
----
-apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
-kind: GKEHubMembership
-metadata:
-  labels:
-  name: gkehubmembership
-spec:
-  location: global
-  authority:
-    # Issuer must contain a link to a valid JWT issuer. Your ContainerCluster is one, to use it, replace ${PROJECT_ID?} with your project ID.
-    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/cluster
-  description: Registering GKE cluster
-  endpoint:
-    gkeCluster:
-      resourceRef:
-        name: cluster
+
