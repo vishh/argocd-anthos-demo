@@ -15,63 +15,19 @@
 apiVersion: container.cnrm.cloud.google.com/v1beta1
 kind: ContainerCluster
 metadata:
-  labels:
-    availability: high
-    target-audience: production
   name: cluster
 spec:
-  description: A large regional VPC-native cluster set up with special networking considerations.
-  location: us-central1
-  initialNodeCount: 1
-  defaultMaxPodsPerNode: 100
-  nodeLocations:
-    - us-central1-a
-  workloadIdentityConfig:
-    # Workload Identity supports only a single namespace based on your project name.
-    # Replace ${PROJECT_ID?} below with your project ID.
-    identityNamespace: vishnuk-cloud.svc.id.goog
-  networkingMode: VPC_NATIVE
-  networkRef:
-    name: containercluster-vpcnative
-  subnetworkRef:
-    name: containercluster-vpcnative
-  ipAllocationPolicy:
-    servicesSecondaryRangeName: servicesrange
-    clusterSecondaryRangeName: clusterrange
-  clusterAutoscaling:
-    enabled: true
-    autoscalingProfile: BALANCED
-    resourceLimits:
-    - resourceType: cpu
-      maximum: 100
-      minimum: 10
-    - resourceType: memory
-      maximum: 1000
-      minimum: 100
-  maintenancePolicy:
-    dailyMaintenanceWindow:
-      startTime: 00:00
-  releaseChannel:
-    channel: STABLE
-  notificationConfig:
-    pubsub:
-      enabled: true
-      topicRef:
-        name: containercluster-vpcnative
-  enableBinaryAuthorization: true
-  enableIntranodeVisibility: true
-  enableShieldedNodes: true
+  description: A routes-based cluster confined to one zone configured for development.
+  location: us-central1-a
+  initialNodeCount: 3
+  networkingMode: ROUTES
+  clusterIpv4Cidr: 10.96.0.0/14
+  masterAuthorizedNetworksConfig:
+    cidrBlocks:
+      - displayName: Trusted external network
+        cidrBlock: 10.2.0.0/16
   addonsConfig:
-    networkPolicyConfig:
-      disabled: false
-    dnsCacheConfig:
+    gcePersistentDiskCsiDriverConfig:
       enabled: true
-    configConnectorConfig:
+    kalmConfig:
       enabled: true
-  networkPolicy:
-    enabled: true
-  podSecurityPolicyConfig:
-    enabled: true
-  verticalPodAutoscaling:
-    enabled: true
-

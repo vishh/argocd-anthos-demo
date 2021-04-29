@@ -16,16 +16,18 @@ apiVersion: container.cnrm.cloud.google.com/v1beta1
 kind: ContainerCluster
 metadata:
   labels:
-    availability: high
-    cluster-type: staging
+    cluster-type: production
     cluster-name: staging-1
   name: cluster
 spec:
-  description: Shared workload cluster meant for staging workloads
+  description: Shared workload cluster meant for production workloads
   workloadIdentityConfig:
     identityNamespace: vishnuk-cloud.svc.id.goog
-  subnetworkRef:
-    name: staging-1-containercluster-vpcnative
+  clusterIpv4Cidr: 10.98.0.0/14
+  masterAuthorizedNetworksConfig:
+    cidrBlocks:
+      - displayName: Trusted external network
+        cidrBlock: 10.4.0.0/16
 ---
 # apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
 # kind: GKEHubMembership

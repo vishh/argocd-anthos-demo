@@ -12,5 +12,4 @@ bases:
 - ../../../../../base/gke-cluster/
 
 patchesStrategicMerge:
-- compute-subnetwork.yaml
 - cluster.yaml
