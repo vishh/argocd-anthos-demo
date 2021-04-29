@@ -20,3 +20,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: kcc
+  syncPolicy:
+    syncOptions:
+      - ApplyOutOfSyncOnly=true
+      - PruneLast=true

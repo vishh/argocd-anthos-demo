@@ -35,7 +35,5 @@ spec:
         maxDuration: 3m
       limit: 5
     syncOptions:
-    - Validate=false
-    - CreateNamespace=false
-    - PrunePropagationPolicy=foreground
+    - ApplyOutOfSyncOnly=true
     - PruneLast=true
