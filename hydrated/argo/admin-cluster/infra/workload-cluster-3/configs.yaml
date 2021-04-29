@@ -49,7 +49,7 @@ metadata:
 spec:
   authority:
     issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1-a/clusters/staging-1-cluster
-  description: Registering GKE cluster prod-2-cluster
+  description: Staging cluster staging-1-cluster
   endpoint:
     gkeCluster:
       resourceRef:

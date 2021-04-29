@@ -49,7 +49,7 @@ metadata:
 spec:
   authority:
     issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1-a/clusters/prod-1-cluster
-  description: A sample GKE Hub membership
+  description: Production cluster prod-1-cluster
   endpoint:
     gkeCluster:
       resourceRef:
