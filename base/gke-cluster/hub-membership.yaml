@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2021 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,20 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-apiVersion: container.cnrm.cloud.google.com/v1beta1
-kind: ContainerCluster
-metadata:
-  name: cluster
-spec:
-  description: Shared workload cluster meant for production workloads
-  workloadIdentityConfig:
-    identityNamespace: vishnuk-cloud.svc.id.goog
-  clusterIpv4Cidr: 10.97.0.0/14
-  masterAuthorizedNetworksConfig:
-    cidrBlocks:
-      - displayName: Trusted external network
-        cidrBlock: 10.3.0.0/16
----
 apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
 kind: GKEHubMembership
 metadata:
@@ -34,9 +20,9 @@ spec:
   location: global
   authority:
     # Issuer must contain a link to a valid JWT issuer. Your ContainerCluster is one, to use it, replace ${PROJECT_ID?} with your project ID.
-    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1-a/clusters/prod-2-cluster
-  description: Registering GKE cluster prod-2-cluster
+    issuer: https://container.googleapis.com/v1/projects/${PROJECT_ID?}/locations/us-central1-a/clusters/cluster
+  description: A sample GKE Hub membership
   endpoint:
     gkeCluster:
       resourceRef:
-        name: prod-2-cluster
+        name: cluster

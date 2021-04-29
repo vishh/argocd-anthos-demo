@@ -15,9 +15,6 @@
 apiVersion: container.cnrm.cloud.google.com/v1beta1
 kind: ContainerCluster
 metadata:
-  labels:
-    cluster-type: production
-    cluster-name: staging-1
   name: cluster
 spec:
   description: Shared workload cluster meant for production workloads
@@ -29,20 +26,17 @@ spec:
       - displayName: Trusted external network
         cidrBlock: 10.4.0.0/16
 ---
-# apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
-# kind: GKEHubMembership
-# metadata:
-#   labels:
-#     cluster-type: staging
-#     cluster-name: staging-1
-#   name: gkehubmembership
-# spec:
-#   location: global
-#   authority:
-#     # Issuer must contain a link to a valid JWT issuer. Your ContainerCluster is one, to use it, replace ${PROJECT_ID?} with your project ID.
-#     issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/staging-1-cluster
-#   description: Registering GKE cluster prod-2-cluster
-#   endpoint:
-#     gkeCluster:
-#       resourceRef:
-#         name: staging-1-cluster
+apiVersion: gkehub.cnrm.cloud.google.com/v1beta1
+kind: GKEHubMembership
+metadata:
+  name: gkehubmembership
+spec:
+  location: global
+  authority:
+    # Issuer must contain a link to a valid JWT issuer. Your ContainerCluster is one, to use it, replace ${PROJECT_ID?} with your project ID.
+    issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1-a/clusters/staging-1-cluster
+  description: Registering GKE cluster prod-2-cluster
+  endpoint:
+    gkeCluster:
+      resourceRef:
+        name: staging-1-cluster

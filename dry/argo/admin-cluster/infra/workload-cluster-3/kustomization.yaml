@@ -7,6 +7,8 @@ namespace: kcc
 commonLabels:
   owner: platforms-team
   type: staging
+  cluster-name: staging-1-cluster
+  cluster-group: staging
   
 bases:
 - ../../../../../base/gke-cluster/

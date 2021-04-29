@@ -7,6 +7,8 @@ namespace: kcc
 commonLabels:
   owner: platforms-team
   type: production
+  cluster-name: prod-1-cluster
+  cluster-group: prod-1
   
 bases:
 - ../../../../../base/gke-cluster/
