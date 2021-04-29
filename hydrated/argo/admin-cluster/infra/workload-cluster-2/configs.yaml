@@ -34,7 +34,7 @@ metadata:
     cluster-name: prod-2-cluster
     owner: platforms-team
     type: production
-  name: admin
+  name: prod-2-gkehubmembership
   namespace: kcc
 spec:
   authority:

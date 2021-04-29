@@ -34,7 +34,7 @@ metadata:
     cluster-name: staging-1-cluster
     owner: platforms-team
     type: production
-  name: admin
+  name: staging-1-gkehubmembership
   namespace: kcc
 spec:
   authority:
