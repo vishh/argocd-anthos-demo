@@ -20,6 +20,16 @@ spec:
   description: Shared workload cluster meant for production workloads
   workloadIdentityConfig:
     identityNamespace: vishnuk-cloud.svc.id.goog
+  clusterAutoscaling:
+      enabled: true
+      autoscalingProfile: BALANCED
+      resourceLimits:
+      - resourceType: cpu
+        maximum: 100
+        minimum: 10
+      - resourceType: memory
+        maximum: 1000
+        minimum: 100
   clusterIpv4Cidr: 10.92.0.0/14
   masterAuthorizedNetworksConfig:
     cidrBlocks:

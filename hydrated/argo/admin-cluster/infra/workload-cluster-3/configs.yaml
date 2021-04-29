@@ -14,6 +14,16 @@ spec:
       enabled: true
     kalmConfig:
       enabled: true
+  clusterAutoscaling:
+    autoscalingProfile: BALANCED
+    enabled: true
+    resourceLimits:
+    - maximum: 100
+      minimum: 10
+      resourceType: cpu
+    - maximum: 1000
+      minimum: 100
+      resourceType: memory
   clusterIpv4Cidr: 10.88.0.0/14
   description: Shared workload cluster meant for production workloads
   initialNodeCount: 3
