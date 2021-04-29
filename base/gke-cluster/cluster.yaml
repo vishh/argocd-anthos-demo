@@ -32,9 +32,9 @@ spec:
     identityNamespace: vishnuk-cloud.svc.id.goog
   networkingMode: VPC_NATIVE
   networkRef:
-    name: containercluster-dep-vpcnative
+    name: containercluster-vpcnative
   subnetworkRef:
-    name: containercluster-dep-vpcnative
+    name: containercluster-vpcnative
   ipAllocationPolicy:
     servicesSecondaryRangeName: servicesrange
     clusterSecondaryRangeName: clusterrange
@@ -57,7 +57,7 @@ spec:
     pubsub:
       enabled: true
       topicRef:
-        name: containercluster-dep-vpcnative
+        name: containercluster-vpcnative
   enableBinaryAuthorization: true
   enableIntranodeVisibility: true
   enableShieldedNodes: true

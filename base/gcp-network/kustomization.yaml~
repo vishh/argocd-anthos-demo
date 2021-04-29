@@ -3,5 +3,6 @@ kind: Kustomization
 
 resources:
 - cluster.yaml
+- compute_v1beta1_computenetwork.yaml
 - compute_v1beta1_computesubnetwork.yaml
 - hub-membership.yaml

@@ -1,16 +1,4 @@
 apiVersion: compute.cnrm.cloud.google.com/v1beta1
-kind: ComputeNetwork
-metadata:
-  labels:
-    owner: platforms-team
-    type: production
-  name: prod-2-containercluster-vpcnative
-  namespace: kcc
-spec:
-  autoCreateSubnetworks: false
-  routingMode: REGIONAL
----
-apiVersion: compute.cnrm.cloud.google.com/v1beta1
 kind: ComputeSubnetwork
 metadata:
   labels:
@@ -75,7 +63,7 @@ spec:
   networkPolicy:
     enabled: true
   networkRef:
-    name: containercluster-dep-vpcnative
+    name: containercluster-vpcnative
   networkingMode: VPC_NATIVE
   nodeLocations:
   - us-central1-a
@@ -83,7 +71,7 @@ spec:
     pubsub:
       enabled: true
       topicRef:
-        name: containercluster-dep-vpcnative
+        name: containercluster-vpcnative
   podSecurityPolicyConfig:
     enabled: true
   releaseChannel:

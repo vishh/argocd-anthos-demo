@@ -1,0 +1,11 @@
+apiVersion: compute.cnrm.cloud.google.com/v1beta1
+kind: ComputeNetwork
+metadata:
+  labels:
+    owner: platforms-team
+    type: production
+  name: containercluster-vpcnative
+  namespace: kcc
+spec:
+  autoCreateSubnetworks: false
+  routingMode: REGIONAL
