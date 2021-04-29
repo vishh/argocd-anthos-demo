@@ -20,7 +20,7 @@ spec:
   description: Shared workload cluster meant for production workloads
   workloadIdentityConfig:
     identityNamespace: vishnuk-cloud.svc.id.goog
-  clusterIpv4Cidr: 10.98.0.0/14
+  clusterIpv4Cidr: 10.91.0.0/14
   masterAuthorizedNetworksConfig:
     cidrBlocks:
       - displayName: Trusted external network
