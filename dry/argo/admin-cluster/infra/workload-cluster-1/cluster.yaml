@@ -25,7 +25,7 @@ spec:
   workloadIdentityConfig:
     identityNamespace: vishnuk-cloud.svc.id.goog
   subnetworkRef:
-    name: prod-1-containercluster-dep-vpcnative
+    name: prod-1-containercluster-vpcnative
   ipAllocationPolicy:
     servicesSecondaryRangeName: servicesrange
     clusterSecondaryRangeName: clusterrange

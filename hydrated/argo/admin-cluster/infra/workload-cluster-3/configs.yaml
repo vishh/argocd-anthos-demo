@@ -4,7 +4,7 @@ metadata:
   labels:
     owner: platforms-team
     type: staging
-  name: staging-1-containercluster-dep-vpcnative
+  name: staging-1-containercluster-vpcnative
   namespace: kcc
 spec:
   autoCreateSubnetworks: false
@@ -16,12 +16,12 @@ metadata:
   labels:
     owner: platforms-team
     type: staging
-  name: staging-1-containercluster-dep-vpcnative
+  name: staging-1-containercluster-vpcnative
   namespace: kcc
 spec:
   ipCidrRange: 10.8.0.0/16
   networkRef:
-    name: containercluster-dep-vpcnative
+    name: containercluster-vpcnative
   region: us-central1
   secondaryIpRange:
   - ipCidrRange: 10.9.0.0/16
@@ -89,7 +89,7 @@ spec:
   releaseChannel:
     channel: STABLE
   subnetworkRef:
-    name: staging-1-containercluster-dep-vpcnative
+    name: staging-1-containercluster-vpcnative
   verticalPodAutoscaling:
     enabled: true
   workloadIdentityConfig:
