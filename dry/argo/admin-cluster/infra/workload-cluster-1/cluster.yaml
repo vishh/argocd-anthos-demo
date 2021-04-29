@@ -38,5 +38,5 @@ spec:
   endpoint:
     gkeCluster:
       resourceRef:
-        name: prod-1cluster
+        name: prod-1-cluster
 

@@ -5,7 +5,7 @@ metadata:
     cluster-group: staging
     cluster-name: staging-1-cluster
     owner: platforms-team
-    type: staging
+    type: production
   name: staging-1-cluster
   namespace: kcc
 spec:
@@ -33,8 +33,8 @@ metadata:
     cluster-group: staging
     cluster-name: staging-1-cluster
     owner: platforms-team
-    type: staging
-  name: staging-1-gkehubmembership
+    type: production
+  name: admin
   namespace: kcc
 spec:
   authority:
