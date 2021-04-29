@@ -5,6 +5,7 @@ metadata:
     owner: platforms-team
     type: staging
   name: staging-1-containercluster-dep-vpcnative
+  namespace: kcc
 spec:
   autoCreateSubnetworks: false
   routingMode: REGIONAL
@@ -16,6 +17,7 @@ metadata:
     owner: platforms-team
     type: staging
   name: staging-1-containercluster-dep-vpcnative
+  namespace: kcc
 spec:
   ipCidrRange: 10.8.0.0/16
   networkRef:
@@ -38,6 +40,7 @@ metadata:
     target-audience: production
     type: staging
   name: staging-1-cluster
+  namespace: kcc
 spec:
   addonsConfig:
     configConnectorConfig:
@@ -101,6 +104,7 @@ metadata:
     owner: platforms-team
     type: staging
   name: staging-1-gkehubmembership
+  namespace: kcc
 spec:
   authority:
     issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/staging-1-cluster

@@ -5,6 +5,7 @@ metadata:
     owner: platforms-team
     type: production
   name: prod-2-containercluster-dep-vpcnative
+  namespace: kcc
 spec:
   autoCreateSubnetworks: false
   routingMode: REGIONAL
@@ -16,6 +17,7 @@ metadata:
     owner: platforms-team
     type: production
   name: prod-2-containercluster-dep-vpcnative
+  namespace: kcc
 spec:
   ipCidrRange: 10.5.0.0/16
   networkRef:
@@ -38,6 +40,7 @@ metadata:
     target-audience: production
     type: production
   name: prod-2-cluster
+  namespace: kcc
 spec:
   addonsConfig:
     configConnectorConfig:
@@ -101,6 +104,7 @@ metadata:
     owner: platforms-team
     type: production
   name: prod-2-gkehubmembership
+  namespace: kcc
 spec:
   authority:
     issuer: https://container.googleapis.com/v1/projects/vishnuk-cloud/locations/us-central1/clusters/prod-2-cluster

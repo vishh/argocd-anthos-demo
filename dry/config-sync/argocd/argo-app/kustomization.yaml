@@ -6,8 +6,8 @@ commonLabels:
   owner: platforms-team
   
 bases:
-- ../../../../../base/argo-app
-- ../../../../../base/argo-project
+- ../../../../base/argo-app
+- ../../../../base/argo-project
 
 patchesStrategicMerge:
 - admin-project.yaml
