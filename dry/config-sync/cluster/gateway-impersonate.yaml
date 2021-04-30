@@ -6,7 +6,7 @@ rules:
 - apiGroups:
   - ""
   resourceNames:
-  - connect-gateway-demo@vishnuk-cloud.iam.gserviceaccount.com
+  - connect-gateway@vishnuk-cloud.iam.gserviceaccount.com
   resources:
   - users
   verbs:

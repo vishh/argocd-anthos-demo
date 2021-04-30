@@ -1,0 +1,38 @@
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMServiceAccount
+metadata:
+  name: connect-gateway
+spec:
+  displayName: GKE Connect Gateway
+
+---
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicy
+metadata:
+  name: argocd-connect-gateway-iampolicy
+spec:
+  resourceRef:
+    apiVersion: iam.cnrm.cloud.google.com/v1beta1
+    kind: IAMServiceAccount
+    name: connect-gateway
+  bindings:
+    - role: roles/iam.workloadIdentityUser
+      members:
+        - serviceAccount:vishnuk-cloud.svc.id.goog[argocd/argocd-application-controller]
+---
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicy
+metadata:
+  name: connect-gateway-iampolicy
+spec:
+  resourceRef:
+    apiVersion: iam.cnrm.cloud.google.com/v1beta1
+    kind: IAMServiceAccount
+    name: connect-gateway
+  bindings:
+    - role: roles/gkehub.gatewayAdmin
+      members:
+        - serviceAccount:connect-gateway@vishnuk-cloud.iam.gserviceaccount.com
+    - role: roles/gkehub.viewer
+      members:
+        - serviceAccount:connect-gateway@vishnuk-cloud.iam.gserviceaccount.com
