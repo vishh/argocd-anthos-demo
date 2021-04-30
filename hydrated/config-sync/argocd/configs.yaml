@@ -2486,6 +2486,7 @@ kind: ServiceAccount
 metadata:
   annotations:
     configsync.gke.io/cluster-name-selector: admin
+    iam.gke.io/gcp-service-account: connect-gateway@vishnuk-cloud.iam.gserviceaccount.com
   labels:
     app.kubernetes.io/component: application-controller
     app.kubernetes.io/name: argocd-application-controller
