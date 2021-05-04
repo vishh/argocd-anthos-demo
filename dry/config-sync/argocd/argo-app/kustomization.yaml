@@ -5,7 +5,7 @@ namespace: argocd
 commonLabels:
   owner: platforms-team
 commonAnnotations:
-  configsync.gke.io/cluster-name-selector: admin
+  configsync.gke.io/cluster-selector: admin-cluster
   
 bases:
 - ../../../../base/argo-app

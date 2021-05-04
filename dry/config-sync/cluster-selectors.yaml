@@ -1,0 +1,15 @@
+kind: Cluster
+apiVersion: clusterregistry.k8s.io/v1alpha1
+metadata:
+  name: admin
+  labels:
+    cluster-type: admin
+---
+kind: ClusterSelector
+apiVersion: configmanagement.gke.io/v1
+metadata:
+  name: admin-cluster
+spec:
+  selector:
+    matchLabels:
+      cluster-type: admin

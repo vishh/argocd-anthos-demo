@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
   annotations:
-    configsync.gke.io/cluster-name-selector: admin
+    configsync.gke.io/cluster-selector: admin-cluster
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:
@@ -30,7 +30,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    configsync.gke.io/cluster-name-selector: admin
+    configsync.gke.io/cluster-selector: admin-cluster
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   labels:

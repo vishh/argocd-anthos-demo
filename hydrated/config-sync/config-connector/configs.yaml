@@ -3,8 +3,10 @@ kind: Namespace
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator-system
 ---
 apiVersion: apiextensions.k8s.io/v1beta1
@@ -12,10 +14,12 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnectorcontexts.core.cnrm.cloud.google.com
 spec:
   group: core.cnrm.cloud.google.com
@@ -91,10 +95,12 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnectors.core.cnrm.cloud.google.com
 spec:
   group: core.cnrm.cloud.google.com
@@ -208,8 +214,10 @@ kind: ServiceAccount
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator
   namespace: configconnector-operator-system
 ---
@@ -218,9 +226,11 @@ kind: ClusterRole
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   creationTimestamp: null
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator-manager-role
 rules:
 - apiGroups:
@@ -377,8 +387,10 @@ kind: ClusterRoleBinding
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -394,8 +406,10 @@ kind: Service
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator-service
   namespace: configconnector-operator-system
 spec:
@@ -405,15 +419,18 @@ spec:
   selector:
     cnrm.cloud.google.com/component: configconnector-operator
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
+    configsync.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/component: configconnector-operator
     cnrm.cloud.google.com/operator-system: "true"
+    owner: platforms-team
   name: configconnector-operator
   namespace: configconnector-operator-system
 spec:
@@ -421,14 +438,17 @@ spec:
     matchLabels:
       cnrm.cloud.google.com/component: configconnector-operator
       cnrm.cloud.google.com/operator-system: "true"
+      owner: platforms-team
   serviceName: configconnector-operator-service
   template:
     metadata:
       annotations:
         cnrm.cloud.google.com/operator-version: 1.48.0
+        configsync.gke.io/cluster-selector: admin-selector
       labels:
         cnrm.cloud.google.com/component: configconnector-operator
         cnrm.cloud.google.com/operator-system: "true"
+        owner: platforms-team
     spec:
       containers:
       - args:
@@ -453,3 +473,7 @@ spec:
           runAsUser: 1000
       serviceAccountName: configconnector-operator
       terminationGracePeriodSeconds: 10
+  volumeClaimTemplates:
+    metadata:
+      labels:
+        owner: platforms-team
