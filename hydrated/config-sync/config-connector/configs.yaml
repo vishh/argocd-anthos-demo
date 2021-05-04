@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
     owner: platforms-team
@@ -14,7 +14,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   labels:
@@ -95,7 +95,7 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
     controller-gen.kubebuilder.io/version: v0.2.4
   creationTimestamp: null
   labels:
@@ -214,7 +214,7 @@ kind: ServiceAccount
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
     owner: platforms-team
@@ -226,7 +226,7 @@ kind: ClusterRole
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   creationTimestamp: null
   labels:
     cnrm.cloud.google.com/operator-system: "true"
@@ -387,7 +387,7 @@ kind: ClusterRoleBinding
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
     owner: platforms-team
@@ -406,7 +406,7 @@ kind: Service
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/operator-system: "true"
     owner: platforms-team
@@ -426,7 +426,7 @@ kind: StatefulSet
 metadata:
   annotations:
     cnrm.cloud.google.com/operator-version: 1.48.0
-    configsync.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-selector
   labels:
     cnrm.cloud.google.com/component: configconnector-operator
     cnrm.cloud.google.com/operator-system: "true"
@@ -444,7 +444,7 @@ spec:
     metadata:
       annotations:
         cnrm.cloud.google.com/operator-version: 1.48.0
-        configsync.gke.io/cluster-selector: admin-selector
+        configmanagement.gke.io/cluster-selector: admin-selector
       labels:
         cnrm.cloud.google.com/component: configconnector-operator
         cnrm.cloud.google.com/operator-system: "true"

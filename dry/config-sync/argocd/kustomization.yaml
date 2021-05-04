@@ -4,7 +4,7 @@ namespace: argocd
 commonLabels:
   owner: platforms-team
 commonAnnotations:
-  configsync.gke.io/cluster-selector: admin-cluster
+  configmanagement.gke.io/cluster-selector: admin-cluster
 
 resources:
 - install.yaml
