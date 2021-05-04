@@ -4,6 +4,8 @@ namePrefix: admin-
 namespace: argocd
 commonLabels:
   owner: platforms-team
+commonAnnotations:
+  configsync.gke.io/cluster-name-selector: admin
   
 bases:
 - ../../../../base/argo-app
