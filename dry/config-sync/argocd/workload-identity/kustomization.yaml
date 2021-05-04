@@ -7,7 +7,7 @@ commonLabels:
   owner: platforms-team
 
 commonAnnotations:
-  configmanagement.gke.io/cluster-selector: admin-selector
+  configmanagement.gke.io/cluster-selector: admin-cluster
 
 resources:
 - identity.yaml

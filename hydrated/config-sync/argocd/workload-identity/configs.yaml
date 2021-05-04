@@ -2,7 +2,7 @@ apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPolicy
 metadata:
   annotations:
-    configmanagement.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-cluster
   labels:
     owner: platforms-team
   name: argocd-connect-gateway-iampolicy
@@ -21,7 +21,7 @@ apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPolicy
 metadata:
   annotations:
-    configmanagement.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-cluster
   labels:
     owner: platforms-team
   name: connect-gateway-iampolicy
@@ -43,7 +43,7 @@ apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount
 metadata:
   annotations:
-    configmanagement.gke.io/cluster-selector: admin-selector
+    configmanagement.gke.io/cluster-selector: admin-cluster
   labels:
     owner: platforms-team
   name: connect-gateway
